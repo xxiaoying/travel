@@ -179,12 +179,12 @@ export default {
     },
     like () {
       this.likeList.forEach((item, i) => {
-        if (item.tag === "WBWUI") {
-          item.class = "wbwui"
-          item.status = "谁买谁用"
-        } else if (item.tag === "RESERVE") {
-          item.class = "reserve"
-          item.status = "可订明日"
+        if (item.tag === 'WBWUI') {
+          item.class = 'wbwui'
+          item.status = '谁买谁用'
+        } else if (item.tag === 'RESERVE') {
+          item.class = 'reserve'
+          item.status = '可订明日'
         }
       })
       return this.likeList
