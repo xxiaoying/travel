@@ -43,10 +43,10 @@
       <!-- 定位 + 必游榜单 -->
       <section class="gps-hot border-top">
         <div class="gps border-right">
-          <span class="iconfont">&#xe678;</span>定位失败
+          <span class="iconfont">&#xe64c;</span>定位失败
         </div>
         <div class="hot">
-          <span class="iconfont">&#xe678;</span>必游榜单
+          <span class="iconfont">&#xe639;</span>必游榜单
         </div>
       </section>
       <!-- 限时抢购 + 打卡圣地 -->
@@ -63,10 +63,10 @@
         </div>
       </section>
       <!-- 本周热门 -->
-      <section class="scenic-spot-list">
+      <section class="scenic-spot">
         <div class="title">
-          <h3><span class="iconfont">&#xe678;</span>本周热门榜单</h3>
-          <h5>全部榜单<span>&#xe678;</span></h5>
+          <h3><span class="iconfont hot">&#xe6a0;</span>本周热门榜单</h3>
+          <h5>全部榜单<span class="iconfont next">&#xe613;</span></h5>
         </div>
         <ul class="hot-sale-list">
           <li class="hot-sale-item" v-for="item in hotList" :key="item.id">
@@ -82,15 +82,15 @@
         </ul>
       </section>
       <!-- 猜你喜欢 -->
-      <section class="scenic-spot-list">
+      <section class="scenic-spot">
         <div class="title">
-          <h3><span class="iconfont">&#xe678;</span>猜你喜欢</h3>
+          <h3><span class="iconfont like">&#xe65c;</span>猜你喜欢</h3>
         </div>
         <ul class="like-list">
-          <li class="like-item border-bottom" v-for="item in hotList" :key="item.id">
-            <!-- <div v-if="item.top">
-              <img class="top-img" :src="item.top">
-            </div> -->
+          <li class="like-item border-bottom" v-for="item in like" :key="item.id">
+            <div v-if="item.tag">
+              <div class="tag-bg" :class="[item.class]">{{item.status}}</div>
+            </div>
             <div class="img-warpper">
               <img class="img-content" :src="item.imgUrl">
             </div>
@@ -98,27 +98,44 @@
               <h3 class="name">{{item.title}}</h3>
               <div class="level">
                 <span class="level-scope">
-                  <strong class="score">
-                    <span class="iconfont">&#xe64a;&#xe64a;&#xe64a;&#xe64a;&#xe64a;</span>
+                  <strong class="score" :style="{ width: item.score }">
+                    <span class="iconfont icon-score">&#xe61a;&#xe61a;&#xe61a;&#xe61a;&#xe61a;</span>
                   </strong>
                   <span>
-                    <span class="iconfont">&#xe64a;&#xe64a;&#xe64a;&#xe64a;&#xe64a;</span>
+                    <span class="iconfont icon-score">&#xe61a;&#xe61a;&#xe61a;&#xe61a;&#xe61a;</span>
                   </span>
                 </span>
-                <span>111条评论</span>
+                <span class="comment">{{item.total}}条评论</span>
               </div>
               <div class="price-addr">
                 <div class="ticket">
                   <span class="unit">￥<em class="price">{{item.price}}</em></span>起
                 </div>
-                <div>浦口区</div>
+                <div class="addr">{{item.addr}}</div>
               </div>
+              <div class="feature"> <span class="bg-feature"> {{item.feature}} </span></div>
             </div>
           </li>
         </ul>
+        <a class="like-more">查看所有产品</a>
       </section>
       <!-- 周末去哪儿 -->
-      <section style="height: 200px;"></section>
+      <section class="weekend">
+        <div class="hot-title">周末去哪儿</div>
+        <div class="week-wrapper" v-for="item in weekendList" :key="item.id">
+          <div class="weekend-img">
+            <img class="hot-img-content" :src="item.imgUrl">
+          </div>
+          <div class="hot-info">
+            <h3 class="title">{{item.title}}</h3>
+            <h4 class="desc">{{item.desc}}</h4>
+          </div>
+        </div>
+      </section>
+      <section class="price-desc">
+        <span class="iconfont">&#xe620;</span>
+        <strong>票面价</strong>是指通过景区指定窗口售卖的纸质门票上标注的价格
+      </section>
     </div>
   </div>
 </template>
@@ -141,7 +158,7 @@ export default {
       swiperList: [],
       iconList: [],
       hotList: [],
-      recommendList: [],
+      likeList: [],
       weekendList: []
     }
   },
@@ -159,6 +176,18 @@ export default {
         pages[index].push(item)
       })
       return pages
+    },
+    like () {
+      this.likeList.forEach((item, i) => {
+        if (item.tag === "WBWUI") {
+          item.class = "wbwui"
+          item.status = "谁买谁用"
+        } else if (item.tag === "RESERVE") {
+          item.class = "reserve"
+          item.status = "可订明日"
+        }
+      })
+      return this.likeList
     }
   },
   methods: {
@@ -171,7 +200,7 @@ export default {
       this.swiperList = resData.swiperList
       this.iconList = resData.iconList
       this.hotList = resData.hotList
-      this.recommendList = resData.recommendList
+      this.likeList = resData.likeList
       this.weekendList = resData.weekendList
     }
   },
@@ -183,6 +212,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
+@import '~styles/mixins.styl'
   >>> .swiper-pagination-bullet
     width: .12rem;
     height: .12rem;
@@ -195,7 +225,7 @@ export default {
     .header-input
       flex: 1
       border-radius: .04rem
-      background: #fff
+      background: $bgColor
       height: .62rem
       line-height: .62rem
       margin-top: .12rem
@@ -218,7 +248,7 @@ export default {
         display: inline-block
         margin-left: -.04rem
   .swiper >>> .swiper-pagination-bullet-active
-    background: #fff
+    background: $bgColor
   .swiper
     height: 0
     padding-bottom: 26.67%
@@ -275,7 +305,7 @@ export default {
       flex: 1
       img
         width: 100%
-  .scenic-spot-list
+  .scenic-spot
     margin-top: .2rem
     background: $bgColor
     padding-left: .24rem
@@ -283,6 +313,15 @@ export default {
       display: flex
       line-height: .44rem
       padding: .26rem .24rem .26rem 0
+      .next
+        font-size: .28rem
+        margin-left: .04rem
+      .hot
+        color: #ff7a47
+        margin-right: .1rem
+      .like
+        color: #ff684b
+        margin-right: .1rem
       h3
         flex: 1
         font-size: .32rem
@@ -329,6 +368,21 @@ export default {
         padding: .2rem 0
         position: relative
         display: flex
+        .tag-bg
+          position: absolute
+          top: .2rem
+          left: 0
+          width: 1.06rem
+          line-height: .4rem
+          color: #fff
+          font-size: .24rem
+          padding-left: .04rem
+        .wbwui
+          background: url(https://img1.qunarzz.com/piao/fusion/1802/20/2ba6d10b17972e02.png)
+          background-size: cover
+        .reserve
+          background: url(https://img1.qunarzz.com/piao/fusion/1802/52/b9080e45b69b4f02.png)
+          background-size: cover
         .img-warpper
           width: 2rem
           height: 2rem
@@ -337,27 +391,82 @@ export default {
         .info
           flex: 1
           padding: 0 .2rem
+          overflow: hidden
           .name
             font-size: .32rem
             padding-top: .26rem
           .level
-            padding: .2rem 0 .22rem
+            padding: .24rem 0 .22rem
             .level-scope
               position: relative
-              width: 80px
-              height: 10px
+              width: 1.2rem
+              height: .2rem
               display: inline-block
+              margin-right: .2rem
+              color: #e0e0e0
               .score
                 color: $emColor
                 position: absolute
                 width: 50%
                 overflow: hidden
+              .icon-score
+                font-size: .24rem
+          .comment
+          .addr
+            font-size: .24rem
+            color: $darkTextColor
           .price-addr
             display: flex
+            line-height: .4rem
             .ticket
               flex: 1
               .unit
                 color: $emColor
               .price
                 font-size: .38rem
+          .feature
+            margin-top: .38rem
+            margin-right: .24rem
+            padding: .04rem .1rem
+            color: #f55
+            font-size: .24rem
+            line-height: .34rem
+            ellipsis()
+            .bg-feature
+              background: #fff9f9
+    .like-more
+      display: block
+      padding: .2rem 0
+      color: #00afc7
+      font-size: .28rem
+      line-height: .4rem
+      text-align: center
+  .weekend
+    .hot-title
+      title()
+    .week-wrapper
+      background: $bgColor
+      margin-bottom: .1rem
+      .weekend-img
+        width: 100%
+        height: 0
+        padding-bottom: 38.6%
+        .hot-img-content
+          width: 100%
+      .hot-info
+        padding: .1rem
+        .title
+          line-height: .45rem
+        .desc
+          line-height: .45rem
+          color: $darkTextColor
+          font-size: .24rem
+          ellipsis()
+  .price-desc
+    font-size: .24rem;
+    line-height: .6rem;
+    background: $bgColor
+    padding-left: .1rem
+    strong
+      font-weight: bold
 </style>
