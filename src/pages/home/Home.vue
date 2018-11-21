@@ -8,7 +8,7 @@
         <span class="iconfont icon-search">&#xe632;</span>
         输入城市/景点/游玩主题
       </div>
-      <router-link to="/city">
+      <router-link to="/city" tag="div">
         <div class="header-right">
           <!-- {{this.$store.state.currentCity}} -->
           南京
@@ -218,14 +218,14 @@ export default {
     height: .12rem;
   .header
     display: flex
-    background: $bgHeaderColor
-    color: #fff
+    background: $colBcd
+    color: $colFff
     height: .86rem
     line-height: .86rem
     .header-input
       flex: 1
       border-radius: .04rem
-      background: $bgColor
+      background: $colFff
       height: .62rem
       line-height: .62rem
       margin-top: .12rem
@@ -242,13 +242,13 @@ export default {
       text-align: center
       text-align: center
       padding: 0 .1rem
-      color: #fff
+      color: $colFff
       .icon-select
         font-size: .1rem
         display: inline-block
         margin-left: -.04rem
   .swiper >>> .swiper-pagination-bullet-active
-    background: $bgColor
+    background: $colFff
   .swiper
     height: 0
     padding-bottom: 26.67%
@@ -265,7 +265,7 @@ export default {
     padding-bottom: 55%
     height: 0
     position:relative
-    background: $bgColor
+    background: $colFff
     .icon
       position: relative
       float: left
@@ -294,7 +294,7 @@ export default {
   .activity
     display: flex
     text-align: center
-    background: $bgColor
+    background: $colFff
     .gps
     .hot
       flex: 1
@@ -307,7 +307,7 @@ export default {
         width: 100%
   .scenic-spot
     margin-top: .2rem
-    background: $bgColor
+    background: $colFff
     padding-left: .24rem
     .title
       display: flex
@@ -374,7 +374,7 @@ export default {
           left: 0
           width: 1.06rem
           line-height: .4rem
-          color: #fff
+          color: $colFff
           font-size: .24rem
           padding-left: .04rem
         .wbwui
@@ -445,7 +445,7 @@ export default {
     .hot-title
       title()
     .week-wrapper
-      background: $bgColor
+      background: $colFff
       margin-bottom: .1rem
       .weekend-img
         width: 100%
@@ -465,7 +465,7 @@ export default {
   .price-desc
     font-size: .24rem;
     line-height: .6rem;
-    background: $bgColor
+    background: $colFff
     padding-left: .1rem
     strong
       font-weight: bold
