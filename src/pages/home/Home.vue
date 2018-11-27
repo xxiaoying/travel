@@ -66,10 +66,10 @@
       <section class="scenic-spot">
         <div class="title">
           <h3><span class="iconfont hot">&#xe6a0;</span>本周热门榜单</h3>
-          <h5>全部榜单<span class="iconfont next">&#xe613;</span></h5>
+          <h5 class="all">全部榜单<span class="iconfont next">&#xe613;</span></h5>
         </div>
         <ul class="hot-sale-list">
-          <li class="hot-sale-item" v-for="item in hotList" :key="item.id">
+          <router-link class="hot-sale-item" :to="'/detail/' + item.id" tag="li" v-for="item in hotList" :key="item.id">
             <div v-if="item.top">
               <img class="top-img" :src="item.top">
             </div>
@@ -78,7 +78,7 @@
             </div>
             <h4 class="name">{{item.title}}</h4>
             <div class="ticket"><span class="unit">￥<em class="price">{{item.price}}</em></span>起</div>
-          </li>
+          </router-link>
         </ul>
       </section>
       <!-- 猜你喜欢 -->
@@ -178,6 +178,7 @@ export default {
       return pages
     },
     like () {
+      // ???????? 后期优化
       this.likeList.forEach((item, i) => {
         if (item.tag === 'WBWUI') {
           item.class = 'wbwui'
@@ -311,11 +312,15 @@ export default {
     padding-left: .24rem
     .title
       display: flex
-      line-height: .44rem
-      padding: .26rem .24rem .26rem 0
-      .next
-        font-size: .28rem
-        margin-left: .04rem
+      title()
+      // line-height: .44rem
+      // padding: .26rem .24rem .26rem 0
+      .all
+        font-size: .24rem
+        .next
+          margin-left: .04rem
+          font-size: .24rem
+          margin-right: .2rem
       .hot
         color: #ff7a47
         margin-right: .1rem
@@ -403,7 +408,7 @@ export default {
               height: .2rem
               display: inline-block
               margin-right: .2rem
-              color: #e0e0e0
+              color: $borderCol
               .score
                 color: $emColor
                 position: absolute
@@ -419,7 +424,9 @@ export default {
             display: flex
             line-height: .4rem
             .ticket
+              font-size: .24rem
               flex: 1
+              color: $darkTextColor
               .unit
                 color: $emColor
               .price
@@ -443,7 +450,9 @@ export default {
       text-align: center
   .weekend
     .hot-title
-      title()
+      height: 0.8rem
+      line-height: 0.8rem
+      text-indent: 0.2rem
     .week-wrapper
       background: $colFff
       margin-bottom: .1rem
