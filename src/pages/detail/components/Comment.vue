@@ -18,10 +18,11 @@
         </span>
         <span class="info">{{comment.userName}}<span class="time">{{comment.time}}</span></span>
       </div>
-      <p class="content clear" style=" overflow: hidden;">{{comment.content}}</p>
-      <div class="iconfont more">&#xe60b;</div>
+      <p class="content clear" style=" overflow: hidden;" :ref="comment.id">{{comment.content}}</p>
+      <div class="iconfont more" v-if="comment.show" @click="moreClick(comment, $event)">&#xe60b;</div>
+      <div></div>
       <!-- 图片集合 -->
-      <div class="imgs">
+      <div class="imgs" @click="picGallary(comment.imgList)">
         <div class="img-container"
           v-for="(img,index) in comment.imgList"
           v-if="index < 6"
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+const LINE = 4
 export default {
   name: 'Comment',
   props: {
@@ -47,11 +49,58 @@ export default {
   },
   data () {
     return {
-      // moreProduct: false
-
+      lineHeight: null
     }
   },
-  mounted () {
+  watch: {
+    userCommentList () {
+      if (!this.userCommentList) {
+        return
+      }
+      for (let i = 0; i < 2; i++) {
+        let comment = this.userCommentList[i]
+        this.$nextTick(() => {
+          console.log(comment)
+          let element = this.$refs[comment.id][0]
+          comment.show = this.isOutLine(element)
+          comment.textShow = true
+          if (comment.show) {
+            this.setHeight(element)
+          }
+          this.$forceUpdate()
+        })
+      }
+    }
+  },
+  methods: {
+    // 计算内容是否超出4行
+    // 使用高度/行高
+    isOutLine (element) {
+      const styles = window.getComputedStyle(element, null)
+      let lh = parseInt(styles.lineHeight)
+      this.lineHeight = lh
+      let h = parseInt(styles.height)
+      let lc = Math.round(h / lh)
+      return lc > LINE
+    },
+    setHeight (element) {
+      element.style.height = (this.lineHeight * LINE) + 'px'
+    },
+    moreClick (comment, event) {
+      let element = this.$refs[comment.id][0]
+      if (comment.textShow) {
+        event.target.innerHTML = '&#xe63a;'
+        element.style.height = 'auto'
+      } else {
+        event.target.innerHTML = '&#xe60b;'
+        this.setHeight(element)
+      }
+      comment.textShow = !comment.textShow
+    },
+    picGallary (imgs) {
+      console.log(imgs)
+      this.$emit('picGallary', imgs)
+    }
   }
 }
 </script>

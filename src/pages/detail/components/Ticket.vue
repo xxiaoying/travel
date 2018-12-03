@@ -1,7 +1,23 @@
 <template>
-  <!-- 门票 一日游 景区服务 -->
-  <div>
-    <section class="tickets" v-for="(tickets, i) in list" :key="i">
+  <section ref="ticketWrapper">
+    <!-- 门票 一日游 景区服务 -->
+    <nav class="border-bottom tab-title clear" ref="nav">
+      <ul>
+        <li @click="tabClick('TICKET')"><span class="active">门票</span></li>
+        <li @click="tabClick('A_DAY_TOUR')" ><span>一日游</span></li>
+        <li @click="tabClick('SCENIC_SPOT')"><span>景区服务</span></li>
+      </ul>
+    </nav>
+
+    <nav class="border-bottom tab-title fixed-nav" v-show="fixNavStatus">
+      <ul>
+        <li @click="tabClick('TICKET')"><span class="active">门票</span></li>
+        <li @click="tabClick('A_DAY_TOUR')" ><span>一日游</span></li>
+        <li @click="tabClick('SCENIC_SPOT')"><span>景区服务</span></li>
+      </ul>
+    </nav>
+    <!-- 门票 一日游 景区服务 -->
+    <section class="tickets" v-for="(tickets, i) in list" :key="i" :ref="tickets.type">
       <h3 class="title tit-bg"><span class="iconfont ticket">&#xe609;</span>{{tickets.title}}</h3>
       <div class="list"
         v-for="(ticket, j) in tickets.children" :key="j" v-show="ticket.show">
@@ -20,7 +36,11 @@
           </section>
           <!-- 票组信息 -->
           <section class="group" v-show="ticket.childShow">
-            <div class="item border-top" v-for="(item, index) in ticket.children" :key="index">
+            <div class="item border-top"
+              v-for="(item, index) in ticket.children"
+              :key="index"
+              v-show="item.show"
+              @click="reserveClick">
               <div class="summarily">
                 <h3 class="g-tit">{{item.title}}</h3>
                 <div>
@@ -49,7 +69,7 @@
       </div>
       <div class="border-top more" v-if="tickets.more" @click="moreProductClick(tickets)">查看剩余产品<span class="iconfont more-all">&#xe60b;</span></div>
     </section>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -60,15 +80,20 @@ export default {
     TicketItem
   },
   props: {
-    categoryList: Array
+    categoryList: Array,
+    scrollY: Number
   },
   data () {
     return {
-      // moreProduct: false
-
+      fixNavStatus: false,
+      navTop: 0,
+      navHegiht: 0
     }
   },
   mounted () {
+    const navEle = this.$refs.nav
+    this.navTop = navEle.offsetTop
+    this.navHegiht = navEle.clientHeight
   },
   computed: {
     // 添加标志加载更多
@@ -95,7 +120,7 @@ export default {
       }
 
       addAttribute(this.categoryList, 2)
-      console.log(this.categoryList)
+      // console.log(this.categoryList)
       return this.categoryList
     }
   },
@@ -111,6 +136,27 @@ export default {
     subTitleClick (ticket) {
       ticket.childShow = !ticket.childShow
       this.$forceUpdate()
+    },
+    tabClick (type) {
+      console.log(type)
+      const letterEle = this.$refs[type][0]
+      const top = letterEle.offsetTop
+      // 减去头部信息 和 margintop
+      document.documentElement.scrollTop = top - 79 - 10
+    },
+    reserveClick () {
+      this.$emit('displayReserve')
+    }
+  },
+  watch: {
+    scrollY () {
+      const wrapperHeight = this.$refs.ticketWrapper.clientHeight
+      const endHeight = wrapperHeight + this.navTop - this.navHegiht - 79
+      if (this.scrollY > this.navTop && this.scrollY < endHeight) {
+        this.fixNavStatus = true
+      } else {
+        this.fixNavStatus = false
+      }
     }
   }
 }
@@ -119,6 +165,32 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
 @import '~styles/mixins.styl'
+.tab-title
+  background: $colFff
+  ul
+    li
+      width: 33%
+      // display: inline-block
+      float: left
+      height: .98rem
+      line-height: .94rem
+      // width: 2.4rem
+      text-align: center
+      font-size: .32rem
+      span
+        display: block
+        width: 80%
+        margin: auto
+        border-bottom: .04rem solid $colFff
+        box-sizing: border-box
+      .active
+         border-bottom: .04rem solid $colBcd
+.fixed-nav
+  position: fixed
+  top: .86rem
+  z-index: 81
+  width: 100%
+  overflow-x: scroll
 .tickets
   margin-bottom: .2rem
   .tit-bg

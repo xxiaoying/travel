@@ -33,7 +33,7 @@
           <div class="button-list">
             <div class="wrapper">
               <!-- {{this.$store.state.currentCity}} -->
-              <div class="button">南京</div>
+              <div class="button">{{currentCity}}</div>
             </div>
           </div>
         </section>
@@ -76,6 +76,7 @@
 <script>
 import BScroll from 'better-scroll'
 import axios from 'axios'
+import { mapState, mapMutations } from 'vuex'
 const CURRENT_CITY_HEIGHT = 76
 // const TITLE_HEIGHT = 30
 export default {
@@ -105,11 +106,54 @@ export default {
     this.searchContentScroll = new BScroll(this.$refs.searchContent)
     this.initScroll()
   },
+  computed: {
+    ...mapState(['currentCity']),
+    // 提取出所有城市
+    cities () {
+      let cities = []
+      for (let i in this.allCities) {
+        for (let value of this.allCities[i]) {
+          cities.push(value)
+        }
+      }
+      return cities
+    },
+    hasNoData () {
+      return !this.filterCities.length
+    },
+    // 提取城市字母列表
+    letters () {
+      let letters = []
+      for (let letter in this.allCities) {
+        letters.push(letter)
+      }
+      return letters
+    },
+    fixedTitle () {
+      if (this.letter) {
+        return ''
+      }
+      if (this.scrollY > 0) {
+        return ''
+      }
+      if (this.letterIndex === -2) {
+        return '当前城市'
+      }
+      if (this.letterIndex === -1) {
+        return '热门城市'
+      }
+      return this.letters[this.letterIndex] ? this.letters[this.letterIndex] : ''
+    }
+  },
   methods: {
+    ...mapMutations([
+      // 将 `this.changCurrent(params)` 映射为 `this.$store.commit('changCurrent', params)`
+      'changCurrent'
+    ]),
     // 切换城市
     switchCity (city) {
-      // this.$store.commit('changCurrent', city)
-      // this.$router.push('/')
+      this.changCurrent(city)
+      this.$router.push('/')
     },
     getCitiesData () {
       axios.get('/api/city.json').then(this.getCitiesSuccess)
@@ -127,6 +171,7 @@ export default {
     // 点击城市索引
     changeLetter (letterIndex) {
       this.letterIndex = letterIndex
+      console.log(this.fixedTitle + 'dddddddddd')
     },
     // 为什么要用touchStart 主要是区分是否是点击事件还是滑动，是用标识位判断
     handleTouchStart () {
@@ -190,44 +235,6 @@ export default {
       this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
     }
   },
-  computed: {
-    // 提取出所有城市
-    cities () {
-      let cities = []
-      for (let i in this.allCities) {
-        for (let value of this.allCities[i]) {
-          cities.push(value)
-        }
-      }
-      return cities
-    },
-    hasNoData () {
-      return !this.filterCities.length
-    },
-    // 提取城市字母列表
-    letters () {
-      let letters = []
-      for (let letter in this.allCities) {
-        letters.push(letter)
-      }
-      return letters
-    },
-    fixedTitle () {
-      if (this.letter) {
-        return ''
-      }
-      if (this.scrollY > 0) {
-        return ''
-      }
-      if (this.scrollY > -CURRENT_CITY_HEIGHT) {
-        return '当前城市'
-      }
-      if (this.letterIndex < 0) {
-        return '热门城市'
-      }
-      return this.letters[this.letterIndex] ? this.letters[this.letterIndex] : ''
-    }
-  },
   watch: {
     allCities () {
       if (this.allCities.length > 0) {
@@ -256,15 +263,12 @@ export default {
     },
     // 监听右侧的城市索引
     letterIndex () {
-      console.log(this.letterIndex)
-      if (!this.letterIndex) {
-        return
-      }
       if (this.letterIndex < 0) {
         return
       }
       let letterRef = this.letters[this.letterIndex]
       const letterEle = this.$refs[letterRef][0]
+      console.log(letterEle)
       this.scroll.scrollToElement(letterEle)
     },
     scrollY (newY) {

@@ -11,7 +11,7 @@
       <router-link to="/city" tag="div">
         <div class="header-right">
           <!-- {{this.$store.state.currentCity}} -->
-          南京
+          {{currentCity}}
           <span class="iconfont icon-select">&#xe64a;</span>
         </div>
       </router-link>
@@ -87,7 +87,8 @@
           <h3><span class="iconfont like">&#xe65c;</span>猜你喜欢</h3>
         </div>
         <ul class="like-list">
-          <li class="like-item border-bottom" v-for="item in like" :key="item.id">
+          <router-link class="like-item border-bottom" :to="'/detail/' + item.id" tag="li" v-for="item in like" :key="item.id">
+          <!-- <li class="like-item border-bottom" v-for="item in like" :key="item.id"> -->
             <div v-if="item.tag">
               <div class="tag-bg" :class="[item.class]">{{item.status}}</div>
             </div>
@@ -115,14 +116,16 @@
               </div>
               <div class="feature"> <span class="bg-feature"> {{item.feature}} </span></div>
             </div>
-          </li>
+          <!-- </li> -->
+          </router-link>
         </ul>
         <a class="like-more">查看所有产品</a>
       </section>
       <!-- 周末去哪儿 -->
       <section class="weekend">
         <div class="hot-title">周末去哪儿</div>
-        <div class="week-wrapper" v-for="item in weekendList" :key="item.id">
+        <router-link class="week-wrapper" :to="'/detail/' + item.id" tag="div" v-for="item in weekendList" :key="item.id">
+        <!-- <div class="week-wrapper" v-for="item in weekendList" :key="item.id"> -->
           <div class="weekend-img">
             <img class="hot-img-content" :src="item.imgUrl">
           </div>
@@ -130,7 +133,8 @@
             <h3 class="title">{{item.title}}</h3>
             <h4 class="desc">{{item.desc}}</h4>
           </div>
-        </div>
+        <!-- </div> -->
+        </router-link>
       </section>
       <section class="price-desc">
         <span class="iconfont">&#xe620;</span>
@@ -143,6 +147,7 @@
 <script>
 // 首页
 import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -163,6 +168,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['currentCity']),
     showSwiper () {
       return this.swiperList.length
     },

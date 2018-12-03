@@ -5,7 +5,7 @@
       <span class="iconfont fabulous">&#xe680;</span>
       去哪儿推荐
     </h2>
-    <section class="detail border-bottom">
+    <section class="detail border-bottom" @click="reserveClick">
       <div class="summarily">
         <h3 class="title">
           【当日8点前可定】总统府成人票【限18-59周岁成人购买】
@@ -30,7 +30,12 @@
 
 <script>
 export default {
-  name: 'Wryg'
+  name: 'Wryg',
+  methods: {
+    reserveClick () {
+      this.$emit('displayReserve')
+    }
+  }
 }
 </script>
 

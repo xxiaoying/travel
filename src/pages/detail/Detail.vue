@@ -24,7 +24,7 @@
           <div class="total"><span class="iconfont icon-img">&#xe678;</span>{{totals}}</div>
         </div>
       </div>
-      <gallary :gallaryImgs="gallaryImgs" v-show="gallaryStatus" @changSwiper="changSwiper"></gallary>
+      <gallary :gallaryImgs="gallaryImgs" v-if="gallaryStatus" @changSwiper="changSwiper"></gallary>
     </section>
     <!-- 基本信息 -->
     <section class="base-info">
@@ -65,19 +65,26 @@
       <span class="iconfont fr next">&#xe613;</span>
     </section>
     <!-- 去哪儿推荐 -->
-    <wryg></wryg>
+    <wryg @displayReserve='displayReserve'></wryg>
     <!-- 门票 一日游 景区服务 -->
-    <nav class="border-bottom tab-title">
+    <!-- <nav class="border-bottom tab-title">
       <ul>
         <li><span class="active">门票</span></li>
         <li><span>一日游</span></li>
         <li><span>一日游</span></li>
       </ul>
-    </nav>
-    <ticket :categoryList="categoryList"></ticket>
-    <comment :userCommentList="userCommentList"></comment>
+    </nav> -->
+    <ticket
+      :categoryList="categoryList"
+      :scrollY="scrollY"
+      @displayReserve='displayReserve'></ticket>
+    <comment :userCommentList="userCommentList" @picGallary="picGallary"></comment>
     <footprints :footprints="footprints"></footprints>
-    <section style="height: 200px;"></section>
+    <transition enter-active-class="animated fast fadeInUp" leave-active-class="animated faster fadeOutDown">
+      <reserve v-show="reserveFlag" @closeReserveClick="closeReserveClick"></reserve>
+    </transition>
+    <div class="mask" v-show="maskFlag"></div>
+    <!-- <section style="height: 200px;"></section> -->
   </div>
 </template>
 
@@ -87,6 +94,7 @@ import Ticket from '@/pages/detail/components/Ticket'
 import Wryg from '@/pages/detail/components/Wryg'
 import Comment from '@/pages/detail/components/Comment'
 import Footprints from '@/pages/detail/components/Footprints'
+import Reserve from '@/pages/detail/components/Reserve'
 import axios from 'axios'
 export default {
   name: 'Detail',
@@ -95,7 +103,8 @@ export default {
     Ticket,
     Wryg,
     Comment,
-    Footprints
+    Footprints,
+    Reserve
   },
   data () {
     return {
@@ -103,13 +112,17 @@ export default {
       opacityStyle: {
         opacity: 0
       },
+      reserveFlag: false,
+      maskFlag: false,
       sightName: '',
       bannerImg: '',
+      defaultImgs: [],
       gallaryImgs: [],
       categoryList: [],
       userCommentList: [],
       footprints: [],
-      gallaryStatus: false
+      gallaryStatus: false,
+      scrollY: 0
     }
   },
   mounted () {
@@ -130,12 +143,14 @@ export default {
       this.sightName = resData.sightName
       this.bannerImg = resData.bannerImg
       this.gallaryImgs = resData.gallaryImgs
+      this.defaultImgs = resData.gallaryImgs
       this.categoryList = resData.categoryList
       this.userCommentList = resData.userCommentList
       this.footprints = resData.footprints
     },
     scroll () {
       let top = document.documentElement.scrollTop
+      this.scrollY = top
       if (top > 50) {
         let opacity = top / 200 > 1 ? 1 : top / 200
         this.opacityStyle.opacity = opacity
@@ -143,23 +158,42 @@ export default {
       } else {
         this.flag = false
       }
-      console.log(document.documentElement.scrollTop)
+      // console.log('scrollY:' + document.documentElement.scrollTop)
     },
     handleBannerClick () {
       this.gallaryStatus = true
     },
     changSwiper () {
       this.gallaryStatus = false
+      this.gallaryImgs = this.defaultImgs
     },
     handleBack () {
       if (this.gallaryStatus) {
         this.gallaryStatus = false
+        this.gallaryImgs = this.defaultImgs
       } else {
         this.$router.push('/')
       }
+    },
+    picGallary (imgs) {
+      this.gallaryStatus = true
+      let images = []
+      imgs.forEach(item => {
+        images.push(item.imgUrl)
+      })
+      this.gallaryImgs = images
+    },
+    displayReserve () {
+      this.maskFlag = true
+      this.reserveFlag = true
+    },
+    closeReserveClick () {
+      this.reserveFlag = false
+      this.maskFlag = false
     }
   },
   beforeDestroy () {
+    // 删除全局事件定义
     window.removeEventListener('scroll', this.scroll)
   }
 }
@@ -184,7 +218,7 @@ export default {
     background: $colBcd
     text-align: center
     font-size: .32rem
-    z-index: 99
+    z-index: 88
     .header-left
       width: .64rem
       padding-left: .2rem
@@ -319,4 +353,20 @@ export default {
         box-sizing: border-box
       .active
          border-bottom: .04rem solid $colBcd
+.mask
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 91
+  background: rgba(0,0,0,.5)
+.fade-enter-active
+.fade-leave-active
+  transition: top .5s
+.fade-enter
+.fade-leave-to
+  top: 15rem
 </style>
