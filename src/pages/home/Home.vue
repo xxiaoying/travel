@@ -30,12 +30,14 @@
       <section class="icons">
         <swiper :options="swiperOptionIcons">
           <swiper-slide v-for="(page, index) in pages" :key="index">
-            <div class="icon" v-for="icon in page" :key="icon.id">
+            <router-link class="icon" v-for="icon in page" :key="icon.id" :to="icon.path" tag="div">
+            <!-- <div class="icon" v-for="icon in page" :key="icon.id"> -->
               <div class="icon-img">
                 <img class="icon-img-content" :src="icon.imgUrl">
               </div>
               <p class="icon-p">{{icon.text}}</p>
-            </div>
+            <!-- </div> -->
+          </router-link>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -87,36 +89,11 @@
           <h3><span class="iconfont like">&#xe65c;</span>猜你喜欢</h3>
         </div>
         <ul class="like-list">
-          <router-link class="like-item border-bottom" :to="'/detail/' + item.id" tag="li" v-for="item in like" :key="item.id">
-          <!-- <li class="like-item border-bottom" v-for="item in like" :key="item.id"> -->
-            <div v-if="item.tag">
-              <div class="tag-bg" :class="[item.class]">{{item.status}}</div>
-            </div>
-            <div class="img-warpper">
-              <img class="img-content" :src="item.imgUrl">
-            </div>
-            <div class="info">
-              <h3 class="name">{{item.title}}</h3>
-              <div class="level">
-                <span class="level-scope">
-                  <strong class="score" :style="{ width: item.score }">
-                    <span class="iconfont icon-score">&#xe61a;&#xe61a;&#xe61a;&#xe61a;&#xe61a;</span>
-                  </strong>
-                  <span>
-                    <span class="iconfont icon-score">&#xe61a;&#xe61a;&#xe61a;&#xe61a;&#xe61a;</span>
-                  </span>
-                </span>
-                <span class="comment">{{item.total}}条评论</span>
-              </div>
-              <div class="price-addr">
-                <div class="ticket">
-                  <span class="unit">￥<em class="price">{{item.price}}</em></span>起
-                </div>
-                <div class="addr">{{item.addr}}</div>
-              </div>
+          <!-- 使用插槽 -->
+          <router-link :to="'/detail/' + item.id" tag="li" v-for="item in likeList" :key="item.id">
+            <tourist-attraction :item="item" >
               <div class="feature"> <span class="bg-feature"> {{item.feature}} </span></div>
-            </div>
-          <!-- </li> -->
+            </tourist-attraction>
           </router-link>
         </ul>
         <a class="like-more">查看所有产品</a>
@@ -146,10 +123,14 @@
 
 <script>
 // 首页
+import TouristAttraction from '@/common/attraction/TouristAttraction'
 import axios from 'axios'
 import { mapState } from 'vuex'
 export default {
   name: 'Home',
+  components: {
+    TouristAttraction
+  },
   data () {
     return {
       swiperOption: {
@@ -182,25 +163,12 @@ export default {
         pages[index].push(item)
       })
       return pages
-    },
-    like () {
-      // ???????? 后期优化
-      this.likeList.forEach((item, i) => {
-        if (item.tag === 'WBWUI') {
-          item.class = 'wbwui'
-          item.status = '谁买谁用'
-        } else if (item.tag === 'RESERVE') {
-          item.class = 'reserve'
-          item.status = '可订明日'
-        }
-      })
-      return this.likeList
     }
   },
   methods: {
     getIndexDatas () {
-      // axios.get('/api/index.json?city=' + this.currentCity).then(this.getIndexInfoSuccess)
-      axios.get('/api/index.json').then(this.getIndexInfoSuccess)
+      axios.get('/api/index.json?city=' + this.currentCity).then(this.getIndexInfoSuccess)
+      // axios.get('/api/index.json').then(this.getIndexInfoSuccess)
     },
     getIndexInfoSuccess (res) {
       const resData = res.data.data
@@ -220,40 +188,21 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
 @import '~styles/mixins.styl'
+@import '~styles/header.styl'
   >>> .swiper-pagination-bullet
-    width: .12rem;
-    height: .12rem;
+    width: .12rem
+    height: .12rem
   .header
-    display: flex
-    background: $colBcd
     color: $colFff
-    height: .86rem
-    line-height: .86rem
     .header-input
-      flex: 1
-      border-radius: .04rem
-      background: $colFff
-      height: .62rem
-      line-height: .62rem
-      margin-top: .12rem
-      padding-left: .15rem
       color: #dcdcdc
-    .header-left
-      width: .64rem
-      padding-left: .2rem
-      .icon-back
-        font-size: .32rem
-        font-weight: bold
     .header-right
       min-width: 1.28rem
-      text-align: center
-      text-align: center
-      padding: 0 .1rem
       color: $colFff
-      .icon-select
-        font-size: .1rem
-        display: inline-block
-        margin-left: -.04rem
+    .icon-select
+      font-size: .1rem
+      display: inline-block
+      margin-left: -.04rem
   .swiper >>> .swiper-pagination-bullet-active
     background: $colFff
   .swiper
@@ -319,8 +268,6 @@ export default {
     .title
       display: flex
       title()
-      // line-height: .44rem
-      // padding: .26rem .24rem .26rem 0
       .all
         font-size: .24rem
         .next
@@ -374,79 +321,6 @@ export default {
             color: $emColor
           .price
             font-size: .28rem
-    .like-list
-      .like-item
-        padding: .2rem 0
-        position: relative
-        display: flex
-        .tag-bg
-          position: absolute
-          top: .2rem
-          left: 0
-          width: 1.06rem
-          line-height: .4rem
-          color: $colFff
-          font-size: .24rem
-          padding-left: .04rem
-        .wbwui
-          background: url(https://img1.qunarzz.com/piao/fusion/1802/20/2ba6d10b17972e02.png)
-          background-size: cover
-        .reserve
-          background: url(https://img1.qunarzz.com/piao/fusion/1802/52/b9080e45b69b4f02.png)
-          background-size: cover
-        .img-warpper
-          width: 2rem
-          height: 2rem
-          .img-content
-            width: 100%
-        .info
-          flex: 1
-          padding: 0 .2rem
-          overflow: hidden
-          .name
-            font-size: .32rem
-            padding-top: .26rem
-          .level
-            padding: .24rem 0 .22rem
-            .level-scope
-              position: relative
-              width: 1.2rem
-              height: .2rem
-              display: inline-block
-              margin-right: .2rem
-              color: $borderCol
-              .score
-                color: $emColor
-                position: absolute
-                width: 50%
-                overflow: hidden
-              .icon-score
-                font-size: .24rem
-          .comment
-          .addr
-            font-size: .24rem
-            color: $darkTextColor
-          .price-addr
-            display: flex
-            line-height: .4rem
-            .ticket
-              font-size: .24rem
-              flex: 1
-              color: $darkTextColor
-              .unit
-                color: $emColor
-              .price
-                font-size: .38rem
-          .feature
-            margin-top: .38rem
-            margin-right: .24rem
-            padding: .04rem .1rem
-            color: #f55
-            font-size: .24rem
-            line-height: .34rem
-            ellipsis()
-            .bg-feature
-              background: #fff9f9
     .like-more
       display: block
       padding: .2rem 0

@@ -24,12 +24,14 @@
           <div class="total"><span class="iconfont icon-img">&#xe678;</span>{{totals}}</div>
         </div>
       </div>
-      <gallary :gallaryImgs="gallaryImgs" v-if="gallaryStatus" @changSwiper="changSwiper"></gallary>
+      <fade-animation>
+        <gallary :gallaryImgs="gallaryImgs" v-if="gallaryStatus" @changSwiper="changSwiper"></gallary>
+      </fade-animation>
     </section>
     <!-- 基本信息 -->
     <section class="base-info">
       <div class="border-bottom info">
-        <div class="border-right comment">
+        <router-link class="border-right comment" to="/strategy" tag="div">
           <div class="score-wrapper">
             <em class="score">4.9</em>分
             <span class="text">很棒</span>
@@ -39,7 +41,7 @@
             <span>38条攻略</span>
           </div>
           <span class="iconfont next">&#xe613;</span>
-        </div>
+        </router-link>
         <div class="tips">
           <div class="introduction">
             景点简介
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+import FadeAnimation from '@/common/animation/FadeAnimation'
 import Gallary from '@/common/gallary/Gallary'
 import Ticket from '@/pages/detail/components/Ticket'
 import Wryg from '@/pages/detail/components/Wryg'
@@ -100,6 +103,7 @@ export default {
   name: 'Detail',
   components: {
     Gallary,
+    FadeAnimation,
     Ticket,
     Wryg,
     Comment,

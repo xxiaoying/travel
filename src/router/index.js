@@ -4,6 +4,8 @@ import Home from '@/pages/home/Home'
 // import City from '@/pages/city/CityClassic'
 import City from '@/pages/city/City'
 import Detail from '@/pages/detail/Detail'
+import Strategy from '@/pages/detail/Strategy'
+import Fusion from '@/pages/fusion/Fusion'
 
 Vue.use(Router)
 
@@ -23,6 +25,16 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/strategy',
+      name: 'Strategy',
+      component: Strategy
+    },
+    {
+      path: '/fusion',
+      name: 'Fusion',
+      component: Fusion
     }
   ],
   // 跳转到新的页面，页面滚到顶部

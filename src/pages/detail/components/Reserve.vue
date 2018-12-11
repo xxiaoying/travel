@@ -5,7 +5,7 @@
       <div class="title">
         <h2 class="name">【当日8点前可定】总统府成人票【限18-59周岁成人购买】</h2>
       </div>
-      <div class="iconfont close" @click="closeClick">&#xe670;</div>
+      <div class="iconfont close" @click="closeClick">&#xe62d;</div>
     </div>
     <article class="content">
       <section class="group">
@@ -111,12 +111,12 @@ export default {
   bottom: 0
   left: 0
   width: 100%
-  background: #fff
+  background: $colFff
   .header
     line-height: .5rem
     font-size: .34rem
     text-align: center
-    color: #212121
+    // color: $borderCol
     .title
       text-align: left
       padding: .4rem .2rem .4rem .2rem
@@ -130,7 +130,7 @@ export default {
       right:0
       width: .88rem
       height: 1rem
-      color: #9e9e9e
+      color: $nextIconCol
       font-size: .4rem
       line-height: 1rem
       text-align: center
@@ -150,7 +150,7 @@ export default {
           position: relative
           margin-top: .3rem
           height: .48rem
-          color: #212121
+          // color: $borderCol
           font-size: .34rem
           line-height: .48rem
           &:before
@@ -165,7 +165,7 @@ export default {
         .line
           overflow: hidden
           margin-top: .2rem
-          color: #616161
+          color: $darkTextColor
           font-size: .28rem
           line-height: .4rem
           word-break: break-all
@@ -185,7 +185,7 @@ export default {
                 display: inline-block
                 height: .38rem
                 padding: 0 .1rem
-                color: #fff
+                color: $colFff
                 font-size: .24rem
                 line-height: .38rem
                 border-radius: .02rem
