@@ -1,19 +1,17 @@
 <template>
   <section ref="ticketWrapper">
     <!-- 门票 一日游 景区服务 -->
-    <nav class="border-bottom tab-title clear" ref="nav">
+    <nav
+      class="border-bottom tab-title clear"
+      :class="{'fixed-nav': fixNavStatus}"
+      ref="nav">
       <ul>
-        <li @click="tabClick('TICKET')"><span class="active">门票</span></li>
-        <li @click="tabClick('A_DAY_TOUR')" ><span>一日游</span></li>
-        <li @click="tabClick('SCENIC_SPOT')"><span>景区服务</span></li>
-      </ul>
-    </nav>
-
-    <nav class="border-bottom tab-title fixed-nav" v-show="fixNavStatus">
-      <ul>
-        <li @click="tabClick('TICKET')"><span class="active">门票</span></li>
-        <li @click="tabClick('A_DAY_TOUR')" ><span>一日游</span></li>
-        <li @click="tabClick('SCENIC_SPOT')"><span>景区服务</span></li>
+        <li
+          @click="tabClick(ticket, index)"
+          v-for="(ticket, index) in list"
+          :key="index">
+          <span :class="{active: (selectTabIndex === index)}">{{ticket.title}}</span>
+        </li>
       </ul>
     </nav>
     <!-- 门票 一日游 景区服务 -->
@@ -86,6 +84,7 @@ export default {
   data () {
     return {
       fixNavStatus: false,
+      selectTabIndex: 0,
       navTop: 0,
       navHegiht: 0
     }
@@ -137,9 +136,10 @@ export default {
       ticket.childShow = !ticket.childShow
       this.$forceUpdate()
     },
-    tabClick (type) {
-      console.log(type)
-      const letterEle = this.$refs[type][0]
+    tabClick (ticket, index) {
+      console.log(ticket)
+      this.selectTabIndex = index
+      const letterEle = this.$refs[ticket.type][0]
       const top = letterEle.offsetTop
       // 减去头部信息 和 margintop
       document.documentElement.scrollTop = top - 79 - 10
@@ -156,6 +156,7 @@ export default {
         this.fixNavStatus = true
       } else {
         this.fixNavStatus = false
+        this.selectTabIndex = 0
       }
     }
   }

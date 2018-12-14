@@ -357,6 +357,7 @@ export default {
   bottom: 0
   left: 0
   overflow: hidden;
+  background: $colFff
   .title
     background: $titleBgColor
     height: 0.6rem

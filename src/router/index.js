@@ -6,6 +6,7 @@ import City from '@/pages/city/City'
 import Detail from '@/pages/detail/Detail'
 import Strategy from '@/pages/detail/Strategy'
 import Fusion from '@/pages/fusion/Fusion'
+import Travel from '@/pages/travel/Travel'
 
 Vue.use(Router)
 
@@ -32,9 +33,14 @@ export default new Router({
       component: Strategy
     },
     {
-      path: '/fusion',
+      path: '/fusion/:type',
       name: 'Fusion',
       component: Fusion
+    },
+    {
+      path: '/travel',
+      name: 'Travel',
+      component: Travel
     }
   ],
   // 跳转到新的页面，页面滚到顶部

@@ -1,0 +1,16 @@
+{
+  "ret": true,
+  "data": {
+    "iconList": [
+      {"id": "001", "text": "景点门票", "path": "/fusion/景点门票"},
+      {"id": "002", "text": "文化古迹", "path": "/fusion/文化古迹"},
+      {"id": "003", "text": "一日游", "path": "/tour"},
+      {"id": "004", "text": "打卡圣地", "path": "/phland"},
+      {"id": "005", "text": "中山陵", "path": "/detail/005"},
+      {"id": "006", "text": "夫子庙", "path": "/detail/006"},
+      {"id": "007", "text": "总统府", "path": "/detail/001"},
+      {"id": "008", "text": "牛首山", "path": "/detail/008"},
+      {"id": "009", "text": "万达主题乐园", "path": "/detail/009"}
+    ]
+  } 
+}

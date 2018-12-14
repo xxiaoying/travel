@@ -21,7 +21,9 @@
       <section class="swiper">
         <swiper :options="swiperOption" v-if="showSwiper">
           <swiper-slide v-for="swiper in swiperList" :key="swiper.id">
-            <img class="swiper-img" :src="swiper.imgUrl">
+            <router-link  :to="swiper.path">
+              <img class="swiper-img" :src="swiper.imgUrl">
+            </router-link>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -145,7 +147,8 @@ export default {
       iconList: [],
       hotList: [],
       likeList: [],
-      weekendList: []
+      weekendList: [],
+      lastCity: null
     }
   },
   computed: {
@@ -181,6 +184,14 @@ export default {
   },
   mounted () {
     this.getIndexDatas()
+  },
+  activated () {
+    if (!this.lastCity) {
+      this.lastCity = this.currentCity
+    } else if (this.lastCity !== this.currentCity) {
+      this.lastCity = this.currentCity
+      this.getIndexDatas()
+    }
   }
 }
 </script>

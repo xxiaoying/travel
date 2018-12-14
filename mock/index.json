@@ -1,0 +1,46 @@
+{
+  "ret": true,
+  "data": {
+    "swiperList": [
+      {"id": "001", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1810/d3/51a22fafb250e502.jpg_750x200_e4d9c5ae.jpg","path": "/travel"},
+      {"id": "006", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1811/a8/cb43c4ac6c215d02.jpg_750x200_83dee994.jpg","path": "/travel"},
+      {"id": "002", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1809/55/b8221770d6d48002.jpg_750x200_9e462eb5.jpg","path": "/travel"},
+      {"id": "003", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1810/91/2c97692e9c002002.jpg_750x200_864e3339.jpg","path": "/travel"},
+      {"id": "004", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1809/31/da037478f37cf202.jpg_750x200_a02cf862.jpg","path": "/travel"},
+      {"id": "005", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1809/c6/2467595fffc3b302.jpg_750x200_cca13d51.jpg","path": "/travel"}
+    ],
+    "iconList": [
+      {"id": "001", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png", "text": "景点门票", "path": "/fusion/景点门票"},
+      {"id": "002", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/20/831d62d2e1c7be02.png", "text": "文化古迹", "path": "/fusion/文化古迹"},
+      {"id": "003", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1804/5a/13ceb38dcf262f02.png", "text": "一日游", "path": "/tour"},
+      {"id": "004", "imgUrl": "https://img1.qunarzz.com/piao/fusion/1803/20/831d62d2e1c7be02.png", "text": "打卡圣地", "path": "/phland"},
+      {"id": "005", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/20/831d62d2e1c7be02.png", "text": "中山陵", "path": "/detail/005"},
+      {"id": "006", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/c1/6f15f887179fa002.png", "text": "夫子庙", "path": "/detail/006"},
+      {"id": "007", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/fa/2548667cb6e902.png", "text": "总统府", "path": "/detail/001"},
+      {"id": "008", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/97/02f5043b51b2102.png", "text": "牛首山", "path": "/detail/008"},
+      {"id": "009", "imgUrl": "http://img1.qunarzz.com/piao/fusion/1803/95/8246f27355943202.png", "text": "万达主题乐园", "path": "/detail/009"}
+    ],
+    "hotList": [
+      {"id": "001", "imgUrl": "http://img1.qunarzz.com/sight/p0/1508/f7/f7c3be996152011c.img.jpg_250x250_1cd1e3cf.jpg", "title": "南京总统府", "price": "36.01", "top": "http://img1.qunarzz.com/piao/fusion/1710/ab/159673b63e6ca702.png"},
+      {"id": "002", "imgUrl": "http://img1.qunarzz.com/sight/p0/1512/95/9579bcb3e5a206cc90.water.jpg_200x200_aaa2ccea.jpg", "title": "大报恩寺遗址公园", "price": "40", "top": "http://img1.qunarzz.com/piao/fusion/1710/2d/36d0c4adaebbbc02.png"},
+      {"id": "003", "imgUrl": "http://img1.qunarzz.com/sight/201312/03/38da27f8a2ad319ec8d65eac.jpg_200x200_72a1d26d.jpg", "title": "红山森林动物园", "price": "0.1", "top": "http://img1.qunarzz.com/piao/fusion/1710/67/edc47ffef9e96b02.png"},
+      {"id": "004", "imgUrl": "http://img1.qunarzz.com/sight/p0/201305/22/273c38aa938ad97dc8d65eac.jpg_200x200_1f49d1ec.jpg", "title": "中山陵", "price": "25.8"},
+      {"id": "005", "imgUrl": "http://img1.qunarzz.com/sight/p0/1411/13/0cd5a9a57ae0d1b9b935ec604ce0f9bf.water.jpg_200x200_9b808f51.jpg", "title": "南京海底世界", "price": "25.8"},
+      {"id": "006", "imgUrl": "http://img1.qunarzz.com/sight/p0/1703/58/589f52a494f307d3a3.water.jpg_200x200_71b77fd4.jpg", "title": "巴布洛生态谷", "price": "48.9"}
+    ],
+    "likeList": [
+      {"id": "001", "imgUrl": "http://img1.qunarzz.com/sight/p0/1508/f7/f7c3be996152011c.img.jpg_250x250_1cd1e3cf.jpg", "title": "南京总统府", "price": "36.01", "total": 32, "addr": "浦口区", "score": "50%", "feature": "南京总统府现在已成为记录中国近代史的博物馆", "tag": "wbwui"},
+      {"id": "002", "imgUrl": "http://img1.qunarzz.com/sight/p0/1512/95/9579bcb3e5a206cc90.water.jpg_200x200_aaa2ccea.jpg", "title": "大报恩寺遗址公园", "price": "36.01", "total": 312, "addr": "江宁区", "score": "60%", "feature": "大报恩寺遗址公园", "tag": "wbwui"},
+      {"id": "003", "imgUrl": "http://img1.qunarzz.com/sight/201312/03/38da27f8a2ad319ec8d65eac.jpg_200x200_72a1d26d.jpg", "title": "红山森林动物园", "price": "36.01", "total": 132, "addr": "雨花区", "score": "70%"},
+      {"id": "004", "imgUrl": "http://img1.qunarzz.com/sight/p0/201305/22/273c38aa938ad97dc8d65eac.jpg_200x200_1f49d1ec.jpg", "title": "中山陵", "price": "36.01", "total": 232, "addr": "鼓楼区", "score": "80%", "feature": "中山陵", "tag": "wbwui"},
+      {"id": "005", "imgUrl": "http://img1.qunarzz.com/sight/p0/1411/13/0cd5a9a57ae0d1b9b935ec604ce0f9bf.water.jpg_200x200_9b808f51.jpg", "title": "南京海底世界", "price": "36.01", "total": 302, "addr": "秦淮区", "score": "90%", "feature": "好美", "tag": "reserve"},
+      {"id": "006", "imgUrl": "http://img1.qunarzz.com/sight/p0/1703/58/589f52a494f307d3a3.water.jpg_200x200_71b77fd4.jpg", "title": "巴布洛生态谷", "price": "36.01", "total": 123, "addr": "浦口区", "score": "100%", "feature": "巴布洛生态谷"}
+    ],
+    "weekendList": [
+      {"id": "001", "imgUrl": "http://img1.qunarzz.com/sight/source/1509/31/534910d969850a.jpg_r_640x214_6ac50353.jpg", "title": "南京赏秋指南", "desc": "金色与红色的完美交融造就了南京秋天的色调"},
+      {"id": "002", "imgUrl": "http://img1.qunarzz.com/sight/source/1505/ed/8bce72632c9136.jpg_r_640x214_221c04c6.jpg", "title": "孩子的游玩地", "desc": "让小朋友们欢脱起来"},
+      {"id": "003", "imgUrl": "http://img1.qunarzz.com/sight/source/1505/e1/cdbf56d837da59.jpg_r_640x214_105fc3f2.jpg", "title": "民国情怀国共风华", "desc": "找到你心中想要的那个民国时期的南京"},
+      {"id": "004", "imgUrl": "http://img1.qunarzz.com/sight/source/1505/f1/ae9d4299b8aaea.jpg_r_640x214_0c555905.jpg", "title": "南京必游TOP10", "desc": "看尽王侯将相荣辱成败，六朝金粉潮起潮落"}
+    ]
+  } 
+}
