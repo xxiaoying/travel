@@ -176,7 +176,8 @@ export default {
         this.gallaryStatus = false
         this.gallaryImgs = this.defaultImgs
       } else {
-        this.$router.push('/')
+        this.$router.go(-1)
+        // this.$router.push('/')
       }
     },
     picGallary (imgs) {
@@ -206,6 +207,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
 @import '~styles/mixins.styl'
+// @import '~styles/header.styl'
 .fr
   float: right
   font-size: .28rem
@@ -237,20 +239,7 @@ export default {
     position: relative
     z-index: 99
     .icon-back
-      position: absolute
-      top: .1rem
-      left: .1rem
-      width: .72rem
-      height: .72rem
-      border-radius: 50%
-      text-align: center
-      background: rgba(0, 0, 0, .5)
-      color: $colFff
-      font-size: .32rem
-      font-weight: bold
-      display: flex
-      flex-direction: column
-      justify-content: center
+      iconBackCircle()
 .img-wrapper
   position: relative
   padding-bottom: 55%

@@ -9,6 +9,8 @@ import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // vuex
 import store from './store/index'
+
+import 'js/rem'
 // 重置移动端不同手机默认样式
 import 'styles/reset.css'
 // 不同dpr手机 1px问题
