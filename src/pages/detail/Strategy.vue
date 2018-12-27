@@ -51,6 +51,7 @@
 
 <script>
 import axios from 'axios'
+import { GET_STRAGEGY_COMMENT } from '@/util/config'
 export default {
   name: 'Strategy',
   data () {
@@ -66,7 +67,7 @@ export default {
   },
   methods: {
     getDetailDatas () {
-      axios.get('/api/stragegyAndComment.json').then(this.getDetailDatasSuccess)
+      axios.get(GET_STRAGEGY_COMMENT).then(this.getDetailDatasSuccess)
     },
     getDetailDatasSuccess (res) {
       const resData = res.data

@@ -125,9 +125,11 @@
 
 <script>
 // 首页
-import TouristAttraction from '@/common/attraction/TouristAttraction'
+import TouristAttraction from '@/pages/common/attraction/TouristAttraction'
 import axios from 'axios'
 import { mapState } from 'vuex'
+import { GET_INDEX_LIST } from '@/util/config'
+
 export default {
   name: 'Home',
   components: {
@@ -136,11 +138,17 @@ export default {
   data () {
     return {
       swiperOption: {
+        // 修改swiper自己或子元素时，自动初始化swiper
+        observer: true,
+        // 修改swiper的父元素时，自动初始化swiper
+        observeParents: true,
         pagination: '.swiper-pagination',
         loop: true,
         autoplay: 1500
       },
       swiperOptionIcons: {
+        observer: true,
+        observeParents: true,
         pagination: '.swiper-pagination'
       },
       swiperList: [],
@@ -170,7 +178,8 @@ export default {
   },
   methods: {
     getIndexDatas () {
-      axios.get('/api/index.json?city=' + this.currentCity).then(this.getIndexInfoSuccess)
+      // axios.get('/api/index.json?city=' + this.currentCity).then(this.getIndexInfoSuccess)
+      axios.get(GET_INDEX_LIST + this.currentCity).then(this.getIndexInfoSuccess)
       // axios.get('/api/index.json').then(this.getIndexInfoSuccess)
     },
     getIndexInfoSuccess (res) {

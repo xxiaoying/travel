@@ -45,6 +45,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { GET_TRAVELING_LIST } from '@/util/config'
 // import Punch from '@/pages/travel/components/Punch'
 // import NearBySights from '@/pages/travel/components/NearBySights'
 export default {
@@ -81,7 +82,7 @@ export default {
   },
   methods: {
     getTravelDatas () {
-      axios.get('/api/traveling.json').then(this.getTravelDataSuccess)
+      axios.get(GET_TRAVELING_LIST).then(this.getTravelDataSuccess)
     },
     getTravelDataSuccess (res) {
       const resData = res.data.data

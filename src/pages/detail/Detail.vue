@@ -91,14 +91,15 @@
 </template>
 
 <script>
-import FadeAnimation from '@/common/animation/FadeAnimation'
-import Gallary from '@/common/gallary/Gallary'
+import FadeAnimation from '@/pages/common/animation/FadeAnimation'
+import Gallary from '@/pages/common/gallary/Gallary'
 import Ticket from '@/pages/detail/components/Ticket'
 import Wryg from '@/pages/detail/components/Wryg'
 import Comment from '@/pages/detail/components/Comment'
 import Footprints from '@/pages/detail/components/Footprints'
 import Reserve from '@/pages/detail/components/Reserve'
 import axios from 'axios'
+import { GET_DETAIL_INFO } from '@/util/config'
 export default {
   name: 'Detail',
   components: {
@@ -140,7 +141,7 @@ export default {
   },
   methods: {
     getDetailDatas () {
-      axios.get('/api/detail.json').then(this.getDetailDatasSuccess)
+      axios.get(GET_DETAIL_INFO).then(this.getDetailDatasSuccess)
     },
     getDetailDatasSuccess (res) {
       const resData = res.data.data

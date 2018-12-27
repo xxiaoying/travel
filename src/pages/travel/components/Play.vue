@@ -7,6 +7,8 @@
 
 <script>
 import axios from 'axios'
+import { GET_PLAY_LIST } from '@/util/config'
+
 export default {
   name: 'Play',
   data () {
@@ -24,7 +26,7 @@ export default {
     },
     getPlayDatas () {
       // 实际情况会带参数获取数据
-      axios.get('/api/play.json?type=' + this.$route.params.type).then(this.getPunchDataSuccess)
+      axios.get(GET_PLAY_LIST + this.$route.params.type).then(this.getPunchDataSuccess)
     },
     getPlayDataSuccess (res) {
       const resData = res.data.data

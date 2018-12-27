@@ -20,10 +20,12 @@ export default {
   data () {
     return {
       swiperOption: {
-        pagination: '.swiper-pagination',
-        paginationType: 'fraction',
+        // 修改swiper自己或子元素时，自动初始化swiper
+        observer: true,
+        // 修改swiper的父元素时，自动初始化swiper
         observeParents: true,
-        observer: true
+        pagination: '.swiper-pagination',
+        paginationType: 'fraction'
       }
     }
   },

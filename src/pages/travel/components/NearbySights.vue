@@ -61,8 +61,11 @@
     </section>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
+import { GET_NEAR_LIST } from '@/util/config'
+
 export default {
   name: 'NearBySights',
   data () {
@@ -91,12 +94,6 @@ export default {
           this.selectIndex = index
           let newTranslate = translate + 5
           swiper.wrapper.transform('translate3d(' + newTranslate + 'px, 0px, 0px)')
-        },
-        onClick: swiper => {
-          let clickIndex = swiper.clickedIndex
-          const slide = swiper.slides[clickIndex]
-          const index = slide.getAttribute('data-swiper-slide-index')
-          this.selectIndex = index
         }
       },
       nearList: [],
@@ -118,7 +115,7 @@ export default {
       this.$emit('tabSelect', this.$route.query.index)
     },
     getNearDatas () {
-      axios.get('/api/near.json').then(this.getNearDataSuccess)
+      axios.get(GET_NEAR_LIST).then(this.getNearDataSuccess)
     },
     getNearDataSuccess (res) {
       const resData = res.data.data

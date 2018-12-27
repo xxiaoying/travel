@@ -87,7 +87,8 @@
 </template>
 <script>
 import axios from 'axios'
-import TouristAttraction from '@/common/attraction/TouristAttraction'
+import TouristAttraction from '@/pages/common/attraction/TouristAttraction'
+import { GET_FUSION_LIST } from '@/util/config'
 export default {
   name: 'Fusion',
   components: {
@@ -140,9 +141,9 @@ export default {
     },
     getIndexDatas (menu) {
       // 根据选择的过滤条件获取景点数据
-      let addr = '/api/fusion.json'
+      let addr = GET_FUSION_LIST
       if (menu) {
-        addr = addr + '?menu=' + menu.id
+        addr = `${addr}?menu=${menu.id}`
       }
       axios.get(addr).then(this.getIndexInfoSuccess)
     },

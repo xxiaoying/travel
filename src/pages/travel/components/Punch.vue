@@ -42,6 +42,7 @@
 
 <script>
 import axios from 'axios'
+import { GET_PUNCH_LIST } from '@/util/config'
 export default {
   name: 'Punch',
   data () {
@@ -59,7 +60,7 @@ export default {
     },
     getPunchDatas () {
       // 实际情况会带参数获取数据
-      axios.get('/api/punch.json').then(this.getPunchDataSuccess)
+      axios.get(GET_PUNCH_LIST).then(this.getPunchDataSuccess)
     },
     getPunchDataSuccess (res) {
       const resData = res.data.data
