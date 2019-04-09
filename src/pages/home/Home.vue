@@ -49,9 +49,12 @@
         <div class="gps border-right">
           <span class="iconfont">&#xe64c;</span>定位失败
         </div>
-        <div class="hot">
-          <span class="iconfont">&#xe639;</span>必游榜单
-        </div>
+        <router-link to="/video" tag="div" class="hot" @click="handleVideo">
+        <!--<div class="hot" @click="handleVideo">-->
+          <!-- 必有榜单 -->
+          <span class="iconfont">&#xe639;</span>视频播放
+        <!--</div>-->
+        </router-link>
       </section>
       <!-- 限时抢购 + 打卡圣地 -->
       <section class="activity border-topbottom">
@@ -177,6 +180,9 @@ export default {
     }
   },
   methods: {
+    handleVideo () {
+
+    },
     getIndexDatas () {
       // axios.get('/api/index.json?city=' + this.currentCity).then(this.getIndexInfoSuccess)
       axios.get(GET_INDEX_LIST + this.currentCity).then(this.getIndexInfoSuccess)

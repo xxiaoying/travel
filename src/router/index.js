@@ -10,6 +10,7 @@ import Travel from '@/pages/travel/Travel'
 import Punch from '@/pages/travel/components/Punch'
 import NearBySights from '@/pages/travel/components/NearBySights'
 import Play from '@/pages/travel/components/Play'
+import Video from '../pages/video/Video'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/fusion/:type',
       name: 'Fusion',
       component: Fusion
+    },
+    {
+      path: '/video',
+      name: 'Video',
+      component: Video
     },
     {
       path: '/travel',
